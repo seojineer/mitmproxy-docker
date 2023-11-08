@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  mitmproxy:
+    image: mitmproxy/mitmproxy:10.1.1
+    volumes:
+      - ./.mitmproxy:/home/mitmproxy/.mitmproxy
+      - ./scripts:/home/mitmproxy/scripts
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    command: ["mitmdump", "-s", "/home/mitmproxy/scripts/block.py"]
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    privileged: true
